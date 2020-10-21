@@ -10,10 +10,15 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../lib/theme';
 
 /**
- * Everything related to Mobx
+ * Everything related to Redux
  */
-// import { initializeStore } from '../../store';
-// import { Provider } from 'mobx-react'
+import {Provider} from 'react-redux';
+import {createStore} from 'redux'
+import reducer from '../stores';
+
+const store = createStore(
+  reducer
+)
 
 export interface MyAppProps {
   initialMobxState: any,
@@ -27,33 +32,10 @@ export interface MyAppState {
 }
 
 class MyApp extends App<MyAppProps, MyAppState> {
-  // mobxStore: any
   pageContext: any
-
-  // static async getInitialProps(appContext) {
-  //   // Get or Create the store with `undefined` as initialState
-  //   // This allows you to set a custom default initialState
-  //   const mobxStore = initializeStore({})
-  //   // Provide the store to getInitialProps of pages
-  //   appContext.ctx.mobxStore = mobxStore
-
-  //   let appProps = await App.getInitialProps(appContext)
-
-  //   return {  
-  //     ...appProps,
-  //     initialMobxState: mobxStore
-  //   }
-  // }
-
 
   constructor(props: MyAppProps) {
     super(props);
-    const isServer = !process.browser
-    // this.mobxStore = isServer
-    //   ? props.initialMobxState
-    //   : initializeStore({
-    //     /**Your initial props here */
-    //   })
   }
   render() {
     const { Component, pageProps } = this.props;
@@ -66,9 +48,9 @@ class MyApp extends App<MyAppProps, MyAppState> {
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
-          {/* <Provider store={this.mobxStore}> */}
+          <Provider store={store}>
             <Component pageContext={this.pageContext} {...pageProps} />
-          {/* </Provider> */}
+          </Provider>
         </ThemeProvider>
       </React.Fragment>
     );
