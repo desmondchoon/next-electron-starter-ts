@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Layout from '../components/Layout'
+import { Button } from '@material-ui/core';
 
 const IndexPage = () => {
   return (
@@ -10,6 +11,7 @@ const IndexPage = () => {
           <a>About</a>
         </Link>
       </p>
+      <Button color="primary">Hello World</Button>;
     </Layout>
   )
 }
